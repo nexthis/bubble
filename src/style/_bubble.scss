@@ -1,0 +1,10 @@
+.bubble{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: aqua;
+  border-radius: 100%;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0,0.4);
+  z-index: 999;
+  will-change: transform;
+}
