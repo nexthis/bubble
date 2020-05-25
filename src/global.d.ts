@@ -1,20 +1,22 @@
 type ElementType = Element | string;
 
-declare enum EVENT_TYPE {
-  EVENT_RESIZE = "bubble.resize"
-}
 
 interface PropsInterface {
   holdFrame: boolean;
-  onOpen: (element: Element) => null;
+  onOpen: (element: Element) => void;
 }
 
+interface BubbleOutInterface {
+  emit: (key: typeof EVENT_TYPE, data?: object) => void,
+  on: (key: typeof EVENT_TYPE, data: object) => void,
+}
 
-interface BubbleInterface {
+interface BubbleInterface extends BubbleOutInterface {
   options: PropsInterface & { element: Element | string };
   element: Element;
-  emit: (key: typeof EVENT_TYPE, data?:object) => null,
-  on: (key:typeof EVENT_TYPE, data:object) => null,
+  hammerjs: HammerManager,
+  queue: { run: () => void, add: (event: Function | boolean | [Function]) => void, clear: () => void },
+  events: {on: () => void, emmit: () => void},
+  resizer: () => void,
 }
-
 

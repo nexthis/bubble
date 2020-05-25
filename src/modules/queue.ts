@@ -7,7 +7,7 @@ const Queue = function (events?: Function | [Function]) {
   this.running = false;
   this.events = [];
   this.add(events);
-};
+} as any;
 
 
 /**
