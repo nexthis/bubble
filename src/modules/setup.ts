@@ -2,7 +2,7 @@ import Hammer from 'hammerjs'
 import Queue from './queue'
 import EventsManager from './events'
 import {EVENT_TYPE} from '../index'
-import { wait } from '../helpers/wait';
+import { createResizeEvent, createMoveEvent } from './eventHandler'
 
 const setupState = (ctx:BubbleInterface) => {
   ctx.queue = new Queue();
@@ -30,23 +30,13 @@ const setupHammerjs = (ctx:BubbleInterface) => {
 }
 
 /**
- * create a resize event that adds recalculate to the event queue;
- * @param ctx {Object} - Macy instance
- */
-const createResizeEvent = (ctx:BubbleInterface) => wait(() => {
-  ctx.emit(EVENT_TYPE.EVENT_RESIZE);
-  // ctx.queue.add(() => ctx.recalculate(true, true));
-}, 100);
-
-
-/**
  * Sets up event listeners for resize and image loading (if required)
- * @param ctx {Object} - Macy instance
+ * @param ctx {Object} - bubble instance
  */
 const setupEventListeners = (ctx:BubbleInterface) => {
 
   window.addEventListener('resize', ctx.resizer);
-  ctx.hammerjs.on("panleft panright panup pandown", (e) => console.log(e)) 
+  ctx.hammerjs.on("panleft panright panup pandown", (e) => createMoveEvent(e,ctx)) 
   ctx.hammerjs.on("tap press", (e) => console.log(e, "tap"))
   ctx.emit(EVENT_TYPE.EVENT_INITIALIZED);
 };

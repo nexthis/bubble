@@ -1,26 +1,38 @@
+interface EventInterface{
+  instance:BubbleInterface;
+  data: object;
+}
+
+
+interface EventManager{
+  events: [Function],
+  instance: boolean | BubbleInterface
+}
+
 /**
  * Event object that will be passed to callbacks
- * @param instance {Macy} - Macy instance
+ * @param instance {bubble} - bubble instance
  * @param data {Object}
  * @returns {Event}
  * @constructor
  */
-const Event = function (instance:BubbleInterface, data = {}) {
+const Event = function (this:EventInterface, instance:BubbleInterface, data = {}) {
   this.instance = instance;
   this.data = data;
 
   return this;
-};
+} as any;
 
 /**
  * Event manager
  * @param instance {Function/boolean}
  * @constructor
  */
-const EventManager = function (instance = false) {
+const EventManager = function (this: EventManager, instance: boolean | BubbleInterface = false) {
+  ///@ts-ignore
   this.events = {};
   this.instance = instance;
-};
+} as any;
 
 /**
  * Event listener for bubble events
@@ -28,7 +40,7 @@ const EventManager = function (instance = false) {
  * @param func {Function/boolean} - Function to be called when event happens
  */
 EventManager.prototype.on = function (key = false, func = false) {
-  if (!key || !func) {
+  if (typeof key === 'boolean' || !func) {
     return false;
   }
 
@@ -45,12 +57,12 @@ EventManager.prototype.on = function (key = false, func = false) {
  * @param data {Object} - Extra data to be passed to the event object that is passed to the event listener.
  */
 EventManager.prototype.emit = function (key: string | boolean = false, data = {}) {
-  if (!key || !Array.isArray(this.events[key])) {
+  if (typeof key === 'boolean' || !Array.isArray(this.events[key])) {
     return false;
   }
 
   const evt = new Event(this.instance, data);
-  this.events[key].map((fn) => fn(evt))
+  this.events[key].map((fn:any) => fn(evt))
   // foreach(this.events[key], (fn) => fn(evt));
 };
 

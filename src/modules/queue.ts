@@ -3,7 +3,7 @@
  * @param events {Mixed} a single function or an array of functions
  * @constructor
  */
-const Queue = function (events?: Function | [Function]) {
+const Queue = function (this: any ,events?: Function | [Function]) {
   this.running = false;
   this.events = [];
   this.add(events);

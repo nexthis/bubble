@@ -15,7 +15,7 @@ const defaults: PropsInterface = {
  */
 const Bubble = function (this: BubbleInterface, element: ElementType, props: PropsInterface) {
   /**
-  * Create instance of macy if not instantiated with new Bubble
+  * Create instance of bubble if not instantiated with new Bubble
   */
   if (!(this instanceof Bubble)) {
     ///@ts-ignore
@@ -54,5 +54,6 @@ export default Bubble;
 
 export enum EVENT_TYPE {
   EVENT_RESIZE = "bubble.resize",
-  EVENT_INITIALIZED = "bubble.initialized"
+  EVENT_MOVE = "bubble.move",
+  EVENT_INITIALIZED = "bubble.initialized",
 }

@@ -1,9 +1,9 @@
-type ElementType = Element | string;
+type ElementType = HTMLElement | string;
 
 
 interface PropsInterface {
   holdFrame: boolean;
-  onOpen: (element: Element) => void;
+  onOpen: (element: HTMLElement) => void;
 }
 
 interface BubbleOutInterface {
@@ -12,8 +12,8 @@ interface BubbleOutInterface {
 }
 
 interface BubbleInterface extends BubbleOutInterface {
-  options: PropsInterface & { element: Element | string };
-  element: Element;
+  options: PropsInterface & { element: HTMLElement | string };
+  element: HTMLElement;
   hammerjs: HammerManager,
   queue: { run: () => void, add: (event: Function | boolean | [Function]) => void, clear: () => void },
   events: {on: () => void, emmit: () => void},
