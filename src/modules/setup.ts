@@ -2,7 +2,7 @@ import Hammer from 'hammerjs'
 import Queue from './queue'
 import EventsManager from './events'
 import {EVENT_TYPE} from '../index'
-import { createResizeEvent, createMoveEvent } from './eventHandler'
+import { createResizeEvent, createMoveEvent, createMoveEndEvent } from './eventHandler'
 
 const setupState = (ctx:BubbleInterface) => {
   ctx.queue = new Queue();
@@ -38,6 +38,7 @@ const setupEventListeners = (ctx:BubbleInterface) => {
   window.addEventListener('resize', ctx.resizer);
   ctx.hammerjs.on("panleft panright panup pandown", (e) => createMoveEvent(e,ctx)) 
   ctx.hammerjs.on("tap press", (e) => console.log(e, "tap"))
+  ctx.hammerjs.on("panend pancancel", (e) => createMoveEndEvent(e,ctx))
   ctx.emit(EVENT_TYPE.EVENT_INITIALIZED);
 };
 
