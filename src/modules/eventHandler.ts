@@ -31,5 +31,5 @@ export const createMoveEvent = (event: HammerInput,ctx:BubbleInterface) => {
 export const createMoveEndEvent = (event: HammerInput,ctx:BubbleInterface) => {
     ctx.emit(EVENT_TYPE.EVENT_MOVE, event);
     // ctx.queue.add(() =>move(ctx.element, event.center ))
-    dock(ctx.element, event.center )
+    dock(ctx.element, event.center, ctx.options.dock )
 }

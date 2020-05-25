@@ -1,9 +1,11 @@
+
+
 type ElementType = HTMLElement | string;
 
 
 interface PropsInterface {
   holdFrame: boolean;
-  onOpen: (element: HTMLElement) => void;
+  dock: Array<[number, number]>;
 }
 
 interface BubbleOutInterface {

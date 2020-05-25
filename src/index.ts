@@ -4,8 +4,8 @@ import setup from './modules/setup'
 
 
 const defaults: PropsInterface = {
-  onOpen: (element) => null,
   holdFrame: true,
+  dock: [[5,5],[95,5],[5,95],[95,95]]
 };
 
 /**
