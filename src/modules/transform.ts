@@ -10,9 +10,10 @@ export const move = (element: HTMLElement, position: {x: number, y: number}) => 
 
 
 
-export const dock = (element: HTMLElement, position: {x: number, y: number}, dock: Array<[number, number]>) => {
+export const dock = (element: HTMLElement, position: {x: number, y: number} | null, dock: Array<[number, number]>) => {
+    position = position === null  ? {x: element.getBoundingClientRect().x, y: element.getBoundingClientRect().y} : position;
 
-    element.style.transform = "";
+
     // calculate the window size with a percentage
     const points = dock.map((item) => {
         return [(window.innerWidth - element.clientWidth) * (item[0] / 100), (window.innerHeight - element.clientHeight) * (item[1] / 100)]
@@ -20,6 +21,7 @@ export const dock = (element: HTMLElement, position: {x: number, y: number}, doc
 
     // find nearly point like https://stackoverflow.com/questions/56306097/get-nearest-point-from-another-one-in-javascript
     const distance = (point: {x: number, y: number}) => {
+        ///@ts-ignore
         return Math.pow(position.x - point.x, 2) + Math.pow(position.y - point.y, 2);
     }
     

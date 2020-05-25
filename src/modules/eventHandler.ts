@@ -8,7 +8,7 @@ import {move, dock} from './transform'
  */
 export const createResizeEvent = (ctx:BubbleInterface) => wait(() => {
     ctx.emit(EVENT_TYPE.EVENT_RESIZE);
-    // ctx.queue.add(() => ctx.recalculate(true, true));
+    dock(ctx.element, null, ctx.options.dock )
 }, 100);
 
 /**
