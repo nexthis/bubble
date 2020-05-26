@@ -4,6 +4,7 @@ import { wait } from '../helpers/wait';
 export const move = (element: HTMLElement, position: {x: number, y: number}) => {
     let point =  {x: position.x - element.clientWidth / 2, y: position.y - element.clientHeight / 2}
     ///element.style.transform = `translateX(${point.x}px) translateY(${point.y}px)`;
+
     gsap.to(element, 0.1, {x: point.x, y:point.y})
 } 
 
@@ -27,6 +28,14 @@ export const dock = (element: HTMLElement, position: {x: number, y: number} | nu
     
     const near = points.reduce((a, b) => distance({x: a[0], y:a[1]}) < distance({x: b[0], y:b[1]}) ? a : b)
     
-    gsap.to(element, 0.5, {x: near[0], y: near[1], ease: "back.out(3)"})
+    gsap.to(element, 0.6, {x: near[0], y: near[1], ease: "back.out(3)"})
     
+}
+
+
+export const toggle = (element: HTMLElement, state: boolean) => {
+    const elements = element.querySelectorAll('.bubble__menu-item');
+    state ?
+    gsap.to(elements, 0.2 , {x: (i) => Math.sin((60 * i) * (Math.PI / 180)) * 100, y: (i) => Math.cos((60 * i) * (Math.PI / 180)) * 100 })
+    : gsap.to(elements,0.7, {x:0,y:0})
 }

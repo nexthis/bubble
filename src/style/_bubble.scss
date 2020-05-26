@@ -1,10 +1,58 @@
 .bubble{
   position: fixed;
-  width: 80px;
-  height: 80px;
-  background-color: aqua;
-  border-radius: 100%;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0,0.4);
+  width: $size;
+  height: $size;
   z-index: 999;
   will-change: transform;
+  cursor: pointer;
+  &__hamburger{
+    width: $size;
+    height: $size;
+    background-color: #EEEEEE;
+    border-radius: 100%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border: none;
+    outline: none;
+    padding: 0;
+  }
+  &__line{
+    width: $size / 3;
+    height: 3px;
+    background: #596778;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -12.5px;
+    margin-top: -1.5px;
+    transition: transform 200ms, -webkit-transform 200ms;
+    &--top{
+      transform: translate3d(0, -8px, 0);
+    }
+    &--mid{
+      transform: translate3d(0, 0, 0);
+    }
+    &--bottom{
+      transform: translate3d(0, 8px, 0);
+    }
+  }
+  &__menu{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  &__menu-item{
+    background: #EEEEEE;
+    border-radius: 100%;
+    width: $size;
+    height: $size;
+    position: absolute;
+    color: #FFFFFF;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
 }

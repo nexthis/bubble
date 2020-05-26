@@ -24,6 +24,7 @@ const Bubble = function (this: BubbleInterface, element: ElementType, props: Pro
 
   ///@ts-ignore
   this.options = {};
+  this.isOpen = false;
   Object.assign(this.options, defaults, props, { element });
   setup(this);
 };
@@ -55,5 +56,7 @@ export default Bubble;
 export enum EVENT_TYPE {
   EVENT_RESIZE = "bubble.resize",
   EVENT_MOVE = "bubble.move",
+  EVENT_MOVE_END = "bubble.move.end",
+  EVENT_TAB = "bubble.tab",
   EVENT_INITIALIZED = "bubble.initialized",
 }

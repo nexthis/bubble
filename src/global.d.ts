@@ -19,6 +19,6 @@ interface BubbleInterface extends BubbleOutInterface {
   hammerjs: HammerManager,
   queue: { run: () => void, add: (event: Function | boolean | [Function]) => void, clear: () => void },
   events: {on: () => void, emmit: () => void},
-  resizer: () => void,
+  isOpen: boolean,
 }
 
