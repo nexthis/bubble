@@ -5,7 +5,9 @@ import setup from './modules/setup'
 
 const defaults: PropsInterface = {
   holdFrame: true,
-  dock: [[5,5],[95,5],[5,95],[95,95]]
+  dock: [[5,5],[95,5],[5,95],[95,95]],
+  dockInitial: [5,5],
+  open: false
 };
 
 /**
@@ -24,7 +26,7 @@ const Bubble = function (this: BubbleInterface, element: ElementType, props: Pro
 
   ///@ts-ignore
   this.options = {};
-  this.isOpen = false;
+  this.state = {isOpen: defaults.open, dock: defaults.dockInitial};
   Object.assign(this.options, defaults, props, { element });
   setup(this);
 };

@@ -11,7 +11,7 @@ export const move = (element: HTMLElement, position: {x: number, y: number}) => 
 
 
 
-export const dock = (element: HTMLElement, position: {x: number, y: number} | null, dock: Array<[number, number]>) => {
+export const dock = (element: HTMLElement, position: {x: number, y: number} | null, dock: Array<[number, number]>): [number, number] => {
     position = position === null  ? {x: element.getBoundingClientRect().x, y: element.getBoundingClientRect().y} : position;
 
 
@@ -30,12 +30,25 @@ export const dock = (element: HTMLElement, position: {x: number, y: number} | nu
     
     gsap.to(element, 0.6, {x: near[0], y: near[1], ease: "back.out(3)"})
     
+    return dock[points.indexOf(near)];
 }
 
 
-export const toggle = (element: HTMLElement, state: boolean) => {
+export const toggleMenu = (element: HTMLElement, state: boolean, dock: [number, number]) => {
     const elements = element.querySelectorAll('.bubble__menu-item');
-    state ?
-    gsap.to(elements, 0.2 , {x: (i) => Math.sin((60 * i) * (Math.PI / 180)) * 100, y: (i) => Math.cos((60 * i) * (Math.PI / 180)) * 100 })
-    : gsap.to(elements,0.7, {x:0,y:0})
+    state ? menuOpne(element,elements) : menuClose(element,elements, dock)
+}
+
+const menuOpne = (element: HTMLElement,elements: NodeListOf<Element>) => {
+    gsap.to(element, .7, {x: window.innerWidth / 2, y: window.innerHeight / 2}).eventCallback('onComplete', () => {
+        gsap.to(element.querySelector('.bubble__hamburger'), 0.2, {scale: 0.8})
+        gsap.to(elements, 0.2 , {x: (i) => Math.sin((60 * i) * (Math.PI / 180)) * 100, y: (i) => Math.cos((60 * i) * (Math.PI / 180)) * 100 })
+    })
+
+}
+
+const menuClose = (element: HTMLElement,elements: NodeListOf<Element> ,dock: [number, number]) => {
+    gsap.to(element, .7, {x: (window.innerWidth - element.clientWidth) * (dock[0] / 100), y: (window.innerHeight - element.clientHeight) * (dock[1] / 100)})
+    gsap.to(element.querySelector('.bubble__hamburger'), 0.2, {scale: 1})
+    gsap.to(elements,0.7, {x:0,y:0})
 }

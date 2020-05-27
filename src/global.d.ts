@@ -6,6 +6,8 @@ type ElementType = HTMLElement | string;
 interface PropsInterface {
   holdFrame: boolean;
   dock: Array<[number, number]>;
+  open: boolean,
+  dockInitial: [number, number]
 }
 
 interface BubbleOutInterface {
@@ -19,6 +21,6 @@ interface BubbleInterface extends BubbleOutInterface {
   hammerjs: HammerManager,
   queue: { run: () => void, add: (event: Function | boolean | [Function]) => void, clear: () => void },
   events: {on: () => void, emmit: () => void},
-  isOpen: boolean,
+  state: {isOpen: boolean, dock: [number, number]}
 }
 

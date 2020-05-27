@@ -1,6 +1,6 @@
 import {EVENT_TYPE} from '../index'
 import { wait } from '../helpers/wait';
-import {move, dock, toggle} from './transform'
+import {move, dock, toggleMenu} from './transform'
 
 /**
  * create a resize event that adds recalculate to the event queue;
@@ -31,7 +31,7 @@ export const createMoveEvent = (event: HammerInput,ctx:BubbleInterface) => {
 export const createMoveEndEvent = (event: HammerInput,ctx:BubbleInterface) => {
     ctx.emit(EVENT_TYPE.EVENT_MOVE_END, event);
     // ctx.queue.add(() =>move(ctx.element, event.center ))
-    dock(ctx.element, event.center, ctx.options.dock )
+    ctx.state.dock =  dock(ctx.element, event.center, ctx.options.dock )
 }
 
 /**
@@ -42,7 +42,7 @@ export const createMoveEndEvent = (event: HammerInput,ctx:BubbleInterface) => {
 export const createTabEvent = (event: HammerInput,ctx:BubbleInterface) => {
     ctx.emit(EVENT_TYPE.EVENT_TAB, event);
     // ctx.queue.add(() =>move(ctx.element, event.center ))
-    ctx.isOpen = !ctx.isOpen;
-    toggle(ctx.element, ctx.isOpen)
+    ctx.state.isOpen = !ctx.state.isOpen;
+    toggleMenu(ctx.element, ctx.state.isOpen, ctx.state.dock)
 
 }
