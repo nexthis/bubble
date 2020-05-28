@@ -8,7 +8,8 @@ import {move, dock, toggleMenu} from './transform'
  */
 export const createResizeEvent = (ctx:BubbleInterface) => wait(() => {
     ctx.emit(EVENT_TYPE.EVENT_RESIZE);
-    dock(ctx.element, null, ctx.options.dock )
+    ctx.state.dock =  dock(ctx.element, null, ctx.options.dock )
+    ctx.state.isOpen ? toggleMenu(ctx.element, ctx.state.isOpen, ctx.state.dock) : null;
 }, 100);
 
 /**

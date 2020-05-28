@@ -8,7 +8,7 @@
   &__hamburger{
     width: $size;
     height: $size;
-    background-color: #EEEEEE;
+    background-color: #0277bd;
     border-radius: 100%;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     border: none;
@@ -22,14 +22,13 @@
   &__line{
     width: $size / 3;
     height: 3px;
-    background: #596778;
+    background: #ffffff;
     display: block;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -12.5px;
     margin-top: -1.5px;
-    transition: transform 200ms, -webkit-transform 200ms;
     &--top{
       transform: translate3d(0, -8px, 0);
     }
@@ -46,7 +45,7 @@
     margin: 0;
   }
   &__menu-item{
-    background: #EEEEEE;
+    background: #0277bd;
     border-radius: 100%;
     width: $size;
     height: $size;
@@ -58,5 +57,6 @@
     left: 0;
     right: 0;
     z-index: -1;
+    transform: scale(0.5);
   }
 }

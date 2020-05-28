@@ -1,10 +1,16 @@
 import gsap from 'gsap';
 import { wait } from '../helpers/wait';
 
+/*
+    TODO 
+    - move math to separate file
+    - fix closing menu while dragging
+    - add a description for the functions
+*/
+
 export const move = (element: HTMLElement, position: {x: number, y: number}) => {
     let point =  {x: position.x - element.clientWidth / 2, y: position.y - element.clientHeight / 2}
-    ///element.style.transform = `translateX(${point.x}px) translateY(${point.y}px)`;
-
+    //element.style.transform = `translateX(${point.x}px) translateY(${point.y}px)`;
     gsap.to(element, 0.1, {x: point.x, y:point.y})
 } 
 
@@ -34,20 +40,22 @@ export const dock = (element: HTMLElement, position: {x: number, y: number} | nu
 }
 
 
-export const toggleMenu = (element: HTMLElement, state: boolean, dock: [number, number]) => {
+export const toggleMenu = (element: HTMLElement , state: boolean, dock: [number, number]) => {
     const elements = element.querySelectorAll('.bubble__menu-item');
     state ? menuOpne(element,elements) : menuClose(element,elements, dock)
 }
 
 const menuOpne = (element: HTMLElement,elements: NodeListOf<Element>) => {
-    gsap.to(element, .7, {x: window.innerWidth / 2, y: window.innerHeight / 2}).eventCallback('onComplete', () => {
+    gsap.to(elements, .5, {scale: 1});
+    gsap.to(element, .7, {x: (window.innerWidth - element.clientWidth) / 2, y: (window.innerHeight - element.clientHeight) / 2}).eventCallback('onComplete', () => {
         gsap.to(element.querySelector('.bubble__hamburger'), 0.2, {scale: 0.8})
-        gsap.to(elements, 0.2 , {x: (i) => Math.sin((60 * i) * (Math.PI / 180)) * 100, y: (i) => Math.cos((60 * i) * (Math.PI / 180)) * 100 })
+        gsap.to(elements, 0.2 , {x: (i) => Math.sin((60 * i) * (Math.PI / 180)) * 100, y: (i) => Math.cos((60 * i) * (Math.PI / 180)) * 100})
     })
 
 }
 
 const menuClose = (element: HTMLElement,elements: NodeListOf<Element> ,dock: [number, number]) => {
+    gsap.to(elements, .5, {scale: .5});
     gsap.to(element, .7, {x: (window.innerWidth - element.clientWidth) * (dock[0] / 100), y: (window.innerHeight - element.clientHeight) * (dock[1] / 100)})
     gsap.to(element.querySelector('.bubble__hamburger'), 0.2, {scale: 1})
     gsap.to(elements,0.7, {x:0,y:0})
