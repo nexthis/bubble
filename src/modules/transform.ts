@@ -78,10 +78,11 @@ const menuOpen = (element: HTMLElement, elements: NodeListOf<Element>) => {
     .eventCallback("onComplete", () => {
       gsap.to(element.querySelector(".bubble__hamburger"), 0.2, { scale: 0.8 });
       gsap.to(elements, 0.2, {
-        x: i => Math.sin(60 * i * (Math.PI / 180)) * 100,
-        y: i => Math.cos(60 * i * (Math.PI / 180)) * 100
+        x: i => Math.sin(( 360 / elements.length ) * i * (Math.PI / 180)) * 100,
+        y: i => Math.cos(( 360 / elements.length ) * i * (Math.PI / 180)) * 100
       });
     });
+  
 };
 
 const menuClose = (
