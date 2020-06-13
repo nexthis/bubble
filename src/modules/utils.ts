@@ -1,11 +1,11 @@
-export const wait = (func: Function, delta: number) => {
-  let to: any;
+export const wait = (func: () => void, delta: number): (() => void) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let to: any;
 
-  return function() {
-    if (to) {
-      clearTimeout(to);
-    }
-
-    to = setTimeout(func, delta);
-  };
+    return function () {
+        if (to) {
+            clearTimeout(to);
+        }
+        to = setTimeout(func, delta);
+    };
 };
