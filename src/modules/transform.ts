@@ -62,6 +62,7 @@ export const menuOpen = (element: HTMLElement, elements: NodeListOf<Element>): v
         x: (window.innerWidth - element.clientWidth) / 2,
         y: (window.innerHeight - element.clientHeight) / 2,
     }).eventCallback('onComplete', () => {
+        toggleLine(element, true);
         gsap.to(element.querySelector('.bubble__hamburger'), 0.2, { scale: 0.8 });
         gsap.to(elements, 0.2, {
             x: (i) => Math.sin((360 / elements.length) * i * (Math.PI / 180)) * 100,
@@ -76,8 +77,34 @@ export const menuClose = (
     dock: [number, number],
     docking = true,
 ): void => {
+    toggleLine(element, false);
     gsap.to(elements, 0.5, { scale: 0.5 });
     docking ? dockTo(element, { x: dock[0], y: dock[1] }) : null;
     gsap.to(element.querySelector('.bubble__hamburger'), 0.2, { scale: 1 });
     gsap.to(elements, 0.7, { x: 0, y: 0 });
+};
+
+const toggleLine = (element: HTMLElement, open: boolean) => {
+    const top = element.querySelector('.bubble__line--top');
+    const mid = element.querySelector('.bubble__line--mid');
+    const bottom = element.querySelector('.bubble__line--bottom');
+    const animation = gsap.timeline();
+
+    if (open) {
+        animation
+            .to(top, { y: 0, duration: 0.2 }, 1)
+            .to(bottom, { y: 0, duration: 0.2 }, 1)
+            .set(mid, { opacity: 0 })
+            .to([top, mid], { rotate: -45 }, 2)
+            .to(bottom, { rotate: 45 }, 2);
+    } else {
+        animation
+            .to([top, mid], { rotate: 0 }, 1)
+            .to(bottom, { rotate: 0 }, 1)
+            .set(mid, { opacity: 1 })
+            .to(mid, { y: 0 }, 2)
+            .to(top, { y: -8 }, 2)
+            .to(bottom, { y: 8 }, 2);
+    }
+    animation.duration(0.4);
 };
